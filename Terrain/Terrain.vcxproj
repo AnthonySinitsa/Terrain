@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -19,15 +19,49 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="applicationclass.cpp" />
-    <ClCompile Include="inputclass.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="systemclass.cpp" />
+    <None Include="color.ps" />
+    <None Include="color.vs" />
+    <None Include="font.ps" />
+    <None Include="font.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="applicationclass.h" />
+    <ClInclude Include="cameraclass.h" />
+    <ClInclude Include="colorshaderclass.h" />
+    <ClInclude Include="d3dclass.h" />
+    <ClInclude Include="fontclass.h" />
+    <ClInclude Include="fontshaderclass.h" />
+    <ClInclude Include="fpsclass.h" />
     <ClInclude Include="inputclass.h" />
+    <ClInclude Include="positionclass.h" />
+    <ClInclude Include="shadermanagerclass.h" />
     <ClInclude Include="systemclass.h" />
+    <ClInclude Include="terrainclass.h" />
+    <ClInclude Include="textclass.h" />
+    <ClInclude Include="textureclass.h" />
+    <ClInclude Include="timerclass.h" />
+    <ClInclude Include="userinterfaceclass.h" />
+    <ClInclude Include="zoneclass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="applicationclass.cpp" />
+    <ClCompile Include="cameraclass.cpp" />
+    <ClCompile Include="colorshaderclass.cpp" />
+    <ClCompile Include="d3dclass.cpp" />
+    <ClCompile Include="fontclass.cpp" />
+    <ClCompile Include="fontshaderclass.cpp" />
+    <ClCompile Include="fpsclass.cpp" />
+    <ClCompile Include="inputclass.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="positionclass.cpp" />
+    <ClCompile Include="shadermanagerclass.cpp" />
+    <ClCompile Include="systemclass.cpp" />
+    <ClCompile Include="terrainclass.cpp" />
+    <ClCompile Include="textclass.cpp" />
+    <ClCompile Include="textureclass.cpp" />
+    <ClCompile Include="timerclass.cpp" />
+    <ClCompile Include="userinterfaceclass.cpp" />
+    <ClCompile Include="zoneclass.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
