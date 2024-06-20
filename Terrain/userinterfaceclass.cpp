@@ -39,12 +39,15 @@ bool UserInterfaceClass::Initialize(D3DClass* Direct3D, int screenHeight, int sc
 	}
 
 	// Initialize the first font object.
-	result = m_Font1->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), "../Engine/data/font/font01.txt",
-		"../Engine/data/font/font01.tga", 32.0f, 3);
+	char fontDataFile[] = "../Terrain/data/font/font01.txt";
+	char fontTextureFile[] = "../Terrain/data/font/font01.tga";
+	result = m_Font1->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), fontDataFile,
+		fontTextureFile, 32.0f, 3);
 	if (!result)
 	{
 		return false;
 	}
+
 
 	// Create the text object for the fps string.
 	m_FpsString = new TextClass;
@@ -54,8 +57,9 @@ bool UserInterfaceClass::Initialize(D3DClass* Direct3D, int screenHeight, int sc
 	}
 
 	// Initialize the fps text string.
+	char fpsText[] = "Fps: 0";
 	result = m_FpsString->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
-		"Fps: 0", 10, 50, 0.0f, 1.0f, 0.0f);
+		fpsText, 10, 50, 0.0f, 1.0f, 0.0f);
 	if (!result)
 	{
 		return false;
@@ -105,47 +109,54 @@ bool UserInterfaceClass::Initialize(D3DClass* Direct3D, int screenHeight, int sc
 	}
 
 	// Initialize the position text strings.
+	char positionText0[] = "X: 0";
 	result = m_PositionStrings[0].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
-		"X: 0", 10, 310, 1.0f, 1.0f, 1.0f);
+		positionText0, 10, 310, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
+	char positionText1[] = "Y: 0";
 	result = m_PositionStrings[1].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
-		"Y: 0", 10, 330, 1.0f, 1.0f, 1.0f);
+		positionText1, 10, 330, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
+	char positionText2[] = "Z: 0";
 	result = m_PositionStrings[2].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
-		"Z: 0", 10, 350, 1.0f, 1.0f, 1.0f);
+		positionText2, 10, 350, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
+	char positionText3[] = "rX: 0";
 	result = m_PositionStrings[3].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
-		"rX: 0", 10, 370, 1.0f, 1.0f, 1.0f);
+		positionText3, 10, 370, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
+	char positionText4[] = "rY: 0";
 	result = m_PositionStrings[4].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
-		"rY: 0", 10, 390, 1.0f, 1.0f, 1.0f);
+		positionText4, 10, 390, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
+	char positionText5[] = "rZ: 0";
 	result = m_PositionStrings[5].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
-		"rZ: 0", 10, 410, 1.0f, 1.0f, 1.0f);
+		positionText5, 10, 410, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
+
 
 	// Initialize the previous frame position.
 	for (i = 0; i < 6; i++)

@@ -26,7 +26,10 @@ bool ColorShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 
 
 	// Initialize the vertex and pixel shaders.
-	result = InitializeShader(device, hwnd, L"../Engine/color.vs", L"../Engine/color.ps");
+	wchar_t vsFilename[] = L"../Terrain/font.vs";
+	wchar_t psFilename[] = L"../Terrain/font.ps";
+
+	result = InitializeShader(device, hwnd, vsFilename, psFilename);
 	if (!result)
 	{
 		return false;

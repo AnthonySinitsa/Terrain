@@ -26,9 +26,11 @@ bool FontShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 {
 	bool result;
 
-
 	// Initialize the vertex and pixel shaders.
-	result = InitializeShader(device, hwnd, L"../Engine/font.vs", L"../Engine/font.ps");
+	wchar_t vsFilename[] = L"../Terrain/font.vs";
+	wchar_t psFilename[] = L"../Terrain/font.ps";
+
+	result = InitializeShader(device, hwnd, vsFilename, psFilename);
 	if (!result)
 	{
 		return false;
