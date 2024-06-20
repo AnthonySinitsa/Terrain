@@ -26,9 +26,11 @@ bool FontShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 {
 	bool result;
 
-
 	// Initialize the vertex and pixel shaders.
-	result = InitializeShader(device, hwnd, L"../Engine/font.vs", L"../Engine/font.ps");
+	wchar_t vsFilename[] = L"../Terrain/font.vs";
+	wchar_t psFilename[] = L"../Terrain/font.ps";
+
+	result = InitializeShader(device, hwnd, vsFilename, psFilename);
 	if (!result)
 	{
 		return false;
@@ -306,7 +308,7 @@ void FontShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hw
 	errorMessage = 0;
 
 	// Pop a message up on the screen to notify the user to check the text file for compile errors.
-	MessageBox(hwnd, L"Error compiling shader.  Check shader-error.txt for message.", shaderFilename, MB_OK);
+	MessageBox(hwnd, L"Error compiling shader.  Check shader-error.txt for message. From FontShaderClass.", shaderFilename, MB_OK);
 
 	return;
 }
