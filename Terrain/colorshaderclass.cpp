@@ -26,8 +26,8 @@ bool ColorShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 
 
 	// Initialize the vertex and pixel shaders.
-	wchar_t vsFilename[] = L"../Terrain/font.vs";
-	wchar_t psFilename[] = L"../Terrain/font.ps";
+	wchar_t vsFilename[] = L"../Terrain/color.vs";
+	wchar_t psFilename[] = L"../Terrain/color.ps";
 
 	result = InitializeShader(device, hwnd, vsFilename, psFilename);
 	if (!result)
@@ -254,7 +254,7 @@ void ColorShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND h
 	errorMessage = 0;
 
 	// Pop a message up on the screen to notify the user to check the text file for compile errors.
-	MessageBox(hwnd, L"Error compiling shader.  Check shader-error.txt for message.", shaderFilename, MB_OK);
+	MessageBox(hwnd, L"Error compiling shader.  Check shader-error.txt for message. From ColorShaderClass.", shaderFilename, MB_OK);
 
 	return;
 }
