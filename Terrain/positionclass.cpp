@@ -15,6 +15,8 @@ PositionClass::PositionClass()
 
 	m_forwardSpeed = 0.0f;
 	m_backwardSpeed = 0.0f;
+	m_leftSpeed = 0.0f;
+	m_rightSpeed = 0.0f;
 	m_upwardSpeed = 0.0f;
 	m_downwardSpeed = 0.0f;
 	m_leftTurnSpeed = 0.0f;
@@ -146,6 +148,68 @@ void PositionClass::MoveBackward(bool keydown)
 
 	return;
 }
+
+
+void PositionClass::MoveLeft(bool keydown)
+{
+	// Update the left movement speed based on the frame time and whether the user is holding the key down or not.
+	if (keydown)
+	{
+		m_leftSpeed += m_frameTime * 1.0f;
+		if (m_leftSpeed > (m_frameTime * 50.0f))
+		{
+			m_leftSpeed = m_frameTime * 50.0f;
+		}
+	}
+	else
+	{
+		m_leftSpeed -= m_frameTime * 0.5f;
+		if (m_leftSpeed < 0.0f)
+		{
+			m_leftSpeed = 0.0f;
+		}
+	}
+
+	// Convert degrees to radians.
+	float radians = m_rotationY * 0.0174532925f;
+
+	// Update the position.
+	m_positionX -= cosf(radians) * m_leftSpeed;
+	m_positionZ += sinf(radians) * m_leftSpeed;
+
+	return;
+}
+
+void PositionClass::MoveRight(bool keydown)
+{
+	// Update the right movement speed based on the frame time and whether the user is holding the key down or not.
+	if (keydown)
+	{
+		m_rightSpeed += m_frameTime * 1.0f;
+		if (m_rightSpeed > (m_frameTime * 50.0f))
+		{
+			m_rightSpeed = m_frameTime * 50.0f;
+		}
+	}
+	else
+	{
+		m_rightSpeed -= m_frameTime * 0.5f;
+		if (m_rightSpeed < 0.0f)
+		{
+			m_rightSpeed = 0.0f;
+		}
+	}
+
+	// Convert degrees to radians.
+	float radians = m_rotationY * 0.0174532925f;
+
+	// Update the position.
+	m_positionX += cosf(radians) * m_rightSpeed;
+	m_positionZ -= sinf(radians) * m_rightSpeed;
+
+	return;
+}
+
 
 
 void PositionClass::MoveUpward(bool keydown)
