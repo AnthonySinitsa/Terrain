@@ -338,10 +338,10 @@ bool InputClass::IsSPressed()
 }
 
 
-bool InputClass::IsPgUpPressed()
+bool InputClass::IsShiftPressed()
 {
 	// Do a bitwise and on the keyboard state to check if the key is currently being pressed.
-	if (m_keyboardState[DIK_PGUP] & 0x80)
+	if (m_keyboardState[DIK_LSHIFT] & 0x80)
 	{
 		return true;
 	}
@@ -350,10 +350,10 @@ bool InputClass::IsPgUpPressed()
 }
 
 
-bool InputClass::IsPgDownPressed()
+bool InputClass::IsSpacePressed()
 {
 	// Do a bitwise and on the keyboard state to check if the key is currently being pressed.
-	if (m_keyboardState[DIK_PGDN] & 0x80)
+	if (m_keyboardState[DIK_SPACE] & 0x80)
 	{
 		return true;
 	}

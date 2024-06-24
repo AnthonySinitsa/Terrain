@@ -189,10 +189,10 @@ void ZoneClass::HandleMovementInput(InputClass* Input, float frameTime)
 	keyDown = Input->IsDPressed();
 	m_Position->MoveRight(keyDown);
 
-	keyDown = Input->IsPgUpPressed();
+	keyDown = Input->IsSpacePressed();
 	m_Position->MoveUpward(keyDown);
 
-	keyDown = Input->IsPgDownPressed();
+	keyDown = Input->IsShiftPressed();
 	m_Position->MoveDownward(keyDown);
 
 	// Get the view point position/rotation.
