@@ -11,3 +11,5 @@ Project that renders terrain utilizing DirectX 11
 ### Added HeightMap
 
 ![height](images/height.png)
+
+Reminder: Make sure to use 257x257 images
