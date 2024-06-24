@@ -60,7 +60,7 @@ bool ZoneClass::Initialize(D3DClass* Direct3D, HWND hwnd, int screenWidth, int s
 	}
 
 	// Set the initial position and rotation.
-	m_Position->SetPosition(128.0f, 5.0f, -10.0f);
+	m_Position->SetPosition(128.0f, 10.0f, -10.0f);
 	m_Position->SetRotation(0.0f, 0.0f, 0.0f);
 
 	// Create the terrain object.
@@ -71,7 +71,7 @@ bool ZoneClass::Initialize(D3DClass* Direct3D, HWND hwnd, int screenWidth, int s
 	}
 
 	// Initialize the terrain object.
-	result = m_Terrain->Initialize(Direct3D->GetDevice());
+	result = m_Terrain->Initialize(Direct3D->GetDevice(), (char*)("../Terrain/data/setup.txt"));
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the terrain object.", L"Error", MB_OK);
@@ -80,6 +80,9 @@ bool ZoneClass::Initialize(D3DClass* Direct3D, HWND hwnd, int screenWidth, int s
 
 	// Set the UI to display by default.
 	m_displayUI = true;
+
+	// Set wire frame rendering initially to enabled.
+	m_wireFrame = true;
 
 	return true;
 }
@@ -186,10 +189,10 @@ void ZoneClass::HandleMovementInput(InputClass* Input, float frameTime)
 	keyDown = Input->IsDPressed();
 	m_Position->MoveRight(keyDown);
 
-	keyDown = Input->IsPgUpPressed();
+	keyDown = Input->IsSpacePressed();
 	m_Position->MoveUpward(keyDown);
 
-	keyDown = Input->IsPgDownPressed();
+	keyDown = Input->IsShiftPressed();
 	m_Position->MoveDownward(keyDown);
 
 	// Get the view point position/rotation.
@@ -204,6 +207,12 @@ void ZoneClass::HandleMovementInput(InputClass* Input, float frameTime)
 	if (Input->IsF1Toggled())
 	{
 		m_displayUI = !m_displayUI;
+	}
+
+	// Determine if the terrain should be rendered in wireframe or not.
+	if (Input->IsF2Toggled())
+	{
+		m_wireFrame = !m_wireFrame;
 	}
 
 	return;
@@ -229,6 +238,12 @@ bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager)
 	// Clear the buffers to begin the scene.
 	Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 
+	// Turn on wire frame rendering of the terrain if needed.
+	if (m_wireFrame)
+	{
+		Direct3D->EnableWireframe();
+	}
+
 	// Render the terrain grid using the color shader.
 	m_Terrain->Render(Direct3D->GetDeviceContext());
 	result = ShaderManager->RenderColorShader(Direct3D->GetDeviceContext(), m_Terrain->GetIndexCount(), worldMatrix, viewMatrix,
@@ -236,6 +251,12 @@ bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager)
 	if (!result)
 	{
 		return false;
+	}
+
+	// Turn off wire frame rendering of the terrain if it was on.
+	if (m_wireFrame)
+	{
+		Direct3D->DisableWireframe();
 	}
 
 	// Render the user interface.

@@ -46,8 +46,8 @@ public:
 	bool IsDPressed();
 	bool IsWPressed();
 	bool IsSPressed();
-	bool IsPgUpPressed();
-	bool IsPgDownPressed();
+	bool IsShiftPressed();
+	bool IsSpacePressed();
 
 	bool IsF1Toggled();
 	bool IsF2Toggled();
