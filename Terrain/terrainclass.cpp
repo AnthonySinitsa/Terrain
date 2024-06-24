@@ -409,14 +409,9 @@ bool TerrainClass::InitializeBuffers(ID3D11Device* device)
 	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
-	int i, j, terrainWidth, terrainHeight, index;
+	int i;
 	XMFLOAT4 color;
-	float positionX, positionZ;
 
-
-	// Set the height and width of the terrain grid.
-	terrainHeight = 256;
-	terrainWidth = 256;
 
 	// Set the color of the terrain grid.
 	color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);

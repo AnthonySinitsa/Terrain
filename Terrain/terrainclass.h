@@ -40,7 +40,7 @@ public:
 	TerrainClass(const TerrainClass&);
 	~TerrainClass();
 
-	bool Initialize(ID3D11Device*);
+	bool Initialize(ID3D11Device*, char*);
 	void Shutdown();
 	bool Render(ID3D11DeviceContext*);
 
@@ -61,7 +61,6 @@ private:
 private:
 	ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
 	int m_vertexCount, m_indexCount;
-
 	int m_terrainHeight, m_terrainWidth;
 	float m_heightScale;
 	char* m_terrainFilename;
