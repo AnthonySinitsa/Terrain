@@ -124,7 +124,7 @@ void ZoneClass::Shutdown()
 }
 
 
-bool ZoneClass::Frame(D3DClass* Direct3D, InputClass* Input, ShaderManagerClass* ShaderManager, float frameTime, int fps)
+bool ZoneClass::Frame(D3DClass* Direct3D, InputClass* Input, ShaderManagerClass* ShaderManager, TextureManagerClass* TextureManager, float frameTime, int fps)
 {
 	bool result;
 	float posX, posY, posZ, rotX, rotY, rotZ;
@@ -145,7 +145,7 @@ bool ZoneClass::Frame(D3DClass* Direct3D, InputClass* Input, ShaderManagerClass*
 	}
 
 	// Render the graphics.
-	result = Render(Direct3D, ShaderManager);
+	result = Render(Direct3D, ShaderManager, TextureManager);
 	if (!result)
 	{
 		return false;
@@ -219,7 +219,7 @@ void ZoneClass::HandleMovementInput(InputClass* Input, float frameTime)
 }
 
 
-bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager)
+bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager, TextureManagerClass* TextureManager)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, baseViewMatrix, orthoMatrix;
 	bool result;
@@ -246,8 +246,8 @@ bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager)
 
 	// Render the terrain grid using the color shader.
 	m_Terrain->Render(Direct3D->GetDeviceContext());
-	result = ShaderManager->RenderColorShader(Direct3D->GetDeviceContext(), m_Terrain->GetIndexCount(), worldMatrix, viewMatrix,
-		projectionMatrix);
+	result = ShaderManager->RenderTextureShader(Direct3D->GetDeviceContext(), m_Terrain->GetIndexCount(), worldMatrix, viewMatrix,
+		projectionMatrix, TextureManager->GetTexture(2));
 	if (!result)
 	{
 		return false;

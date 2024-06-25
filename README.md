@@ -12,4 +12,6 @@ Project that renders terrain utilizing DirectX 11
 
 ![height](images/height.png)
 
-Reminder: Make sure to use 257x257 images
+### Added 4k texture every square meter
+
+![terraintexture](images/terraintexture.png)
