@@ -23,6 +23,8 @@
     <None Include="color.vs" />
     <None Include="font.ps" />
     <None Include="font.vs" />
+    <None Include="light.ps" />
+    <None Include="light.vs" />
     <None Include="texture.ps" />
     <None Include="texture.vs" />
   </ItemGroup>
@@ -35,6 +37,8 @@
     <ClInclude Include="fontshaderclass.h" />
     <ClInclude Include="fpsclass.h" />
     <ClInclude Include="inputclass.h" />
+    <ClInclude Include="lightclass.h" />
+    <ClInclude Include="lightshaderclass.h" />
     <ClInclude Include="positionclass.h" />
     <ClInclude Include="shadermanagerclass.h" />
     <ClInclude Include="systemclass.h" />
@@ -56,6 +60,8 @@
     <ClCompile Include="fontshaderclass.cpp" />
     <ClCompile Include="fpsclass.cpp" />
     <ClCompile Include="inputclass.cpp" />
+    <ClCompile Include="lightclass.cpp" />
+    <ClCompile Include="lightshaderclass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="positionclass.cpp" />
     <ClCompile Include="shadermanagerclass.cpp" />

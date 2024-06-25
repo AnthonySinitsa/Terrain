@@ -12,6 +12,7 @@
 #include "timerclass.h"
 #include "userinterfaceclass.h"
 #include "cameraclass.h"
+#include "lightclass.h"
 #include "positionclass.h"
 #include "terrainclass.h"
 
@@ -37,6 +38,7 @@ private:
 private:
 	UserInterfaceClass* m_UserInterface;
 	CameraClass* m_Camera;
+	LightClass* m_Light;
 	PositionClass* m_Position;
 	TerrainClass* m_Terrain;
 	bool m_displayUI, m_wireFrame;
