@@ -7,6 +7,7 @@
 ///////////////////////
 #include "d3dclass.h"
 #include "colorshaderclass.h"
+#include "textureshaderclass.h"
 #include "fontshaderclass.h"
 
 
@@ -24,10 +25,12 @@ public:
 	void Shutdown();
 
 	bool RenderColorShader(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX);
+	bool RenderTextureShader(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView*);
 	bool RenderFontShader(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView*, XMFLOAT4);
 
 private:
 	ColorShaderClass* m_ColorShader;
+	TextureShaderClass* m_TextureShader;
 	FontShaderClass* m_FontShader;
 };
 
