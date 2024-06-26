@@ -15,3 +15,7 @@ Project that renders terrain utilizing DirectX 11
 ### Added 4k texture every square meter
 
 ![terraintexture](images/terraintexture.png)
+
+### Shadows
+
+![shading](images/shading.png)
