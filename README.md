@@ -19,3 +19,7 @@ Project that renders terrain utilizing DirectX 11
 ### Shadows
 
 ![shading](images/shading.png)
+
+### Colormap
+
+![colormap](images/colormap.png)
