@@ -78,7 +78,6 @@ private:
 	int m_terrainHeight, m_terrainWidth;
 	float m_heightScale;
 	char* m_terrainFilename, * m_colorMapFilename;
-	char* m_terrainFilename;
 	HeightMapType* m_heightMap;
 	ModelType* m_terrainModel;
 };
