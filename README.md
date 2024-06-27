@@ -23,3 +23,7 @@ Project that renders terrain utilizing DirectX 11
 ### Colormap
 
 ![colormap](images/colormap.png)
+
+### Normals added
+
+![normals](images/normals.png)
