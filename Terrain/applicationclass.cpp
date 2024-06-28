@@ -95,7 +95,7 @@ bool ApplicationClass::Initialize(HINSTANCE hinstance, HWND hwnd, int screenWidt
 		return false;
 	}
 
-	result = m_TextureManager->LoadTexture(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), (char*)"../Terrain/data/textures/rocky01normal.tga", 1);
+	result = m_TextureManager->LoadTexture(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), (char*)"../Terrain/data/textures/rocky01normal2.tga", 1);
 	if (!result)
 	{
 		return false;
