@@ -41,6 +41,8 @@ public:
 
 	int GetIndexCount();
 	XMFLOAT4 GetApexColor();
+	XMFLOAT4 GetMidColor1();
+	XMFLOAT4 GetMidColor2();
 	XMFLOAT4 GetCenterColor();
 
 private:
@@ -55,7 +57,7 @@ private:
 	ModelType* m_model;
 	int m_vertexCount, m_indexCount;
 	ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
-	XMFLOAT4 m_apexColor, m_centerColor;
+	XMFLOAT4 m_apexColor, m_midColor1, m_midColor2, m_centerColor;
 };
 
 #endif

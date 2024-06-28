@@ -27,3 +27,7 @@ Project that renders terrain utilizing DirectX 11
 ### Normals added
 
 ![normals](images/normals.png)
+
+### SkyDome
+
+![skydome](images/skydome.png)

@@ -295,7 +295,7 @@ bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager, Te
 	// Render the sky dome using the sky dome shader.
 	m_SkyDome->Render(Direct3D->GetDeviceContext());
 	result = ShaderManager->RenderSkyDomeShader(Direct3D->GetDeviceContext(), m_SkyDome->GetIndexCount(), worldMatrix, viewMatrix,
-		projectionMatrix, m_SkyDome->GetApexColor(), m_SkyDome->GetCenterColor());
+		projectionMatrix, m_SkyDome->GetApexColor(), m_SkyDome->GetMidColor1(), m_SkyDome->GetMidColor2(), m_SkyDome->GetCenterColor());
 	if (!result)
 	{
 		return false;

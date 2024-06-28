@@ -4,6 +4,8 @@
 cbuffer ColorBuffer
 {
     float4 apexColor;
+    float4 midColor1;
+    float4 midColor2;
     float4 centerColor;
 };
 
@@ -36,8 +38,19 @@ float4 SkyDomePixelShader(PixelInputType input) : SV_TARGET
         height = 0.0f;
     }
 
-    // Determine the gradient color by interpolating between the apex and center based on the height of the pixel in the sky dome.
-    outputColor = lerp(centerColor, apexColor, height);
+    // Determine the gradient color based on the height of the pixel in the sky dome.
+    if(height >= 0.5)
+    {
+        outputColor = lerp(midColor1, apexColor, (height - 0.5) * 2.0);
+    }
+    else if(height >= 0.25)
+    {
+        outputColor = lerp(midColor2, midColor1, (height - 0.25) * 4.0);
+    }
+    else
+    {
+        outputColor = lerp(centerColor, midColor2, height * 4.0);
+    }
 
     return outputColor;
 }

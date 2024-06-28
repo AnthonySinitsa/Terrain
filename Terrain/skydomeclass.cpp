@@ -37,10 +37,14 @@ bool SkyDomeClass::Initialize(ID3D11Device* device)
 	}
 
 	// Set the color at the top of the sky dome.
-	m_apexColor = XMFLOAT4(0.0f, 0.05f, 0.6f, 1.0f);
+	m_apexColor = XMFLOAT4(0.0f, 0.6f, 1.0f, 1.0f);
+
+	m_midColor1 = XMFLOAT4(0.6f, 0.8f, 0.9f, 1.0f);
+
+	m_midColor2 = XMFLOAT4(0.6f, 0.9f, 1.0f, 1.0f);
 
 	// Set the color at the center of the sky dome.
-	m_centerColor = XMFLOAT4(0.0f, 0.5f, 0.8f, 1.0f);
+	m_centerColor = XMFLOAT4(0.8f, 0.9f, 0.9f, 1.0f);
 
 	return true;
 }
@@ -72,6 +76,16 @@ int SkyDomeClass::GetIndexCount()
 XMFLOAT4 SkyDomeClass::GetApexColor()
 {
 	return m_apexColor;
+}
+
+XMFLOAT4 SkyDomeClass::GetMidColor1()
+{
+	return m_midColor1;
+}
+
+XMFLOAT4 SkyDomeClass::GetMidColor2()
+{
+	return m_midColor2;
 }
 
 XMFLOAT4 SkyDomeClass::GetCenterColor()

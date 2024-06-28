@@ -46,13 +46,13 @@ void SkyDomeShaderClass::Shutdown()
 
 
 bool SkyDomeShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix,
-	XMMATRIX projectionMatrix, XMFLOAT4 apexColor, XMFLOAT4 centerColor)
+	XMMATRIX projectionMatrix, XMFLOAT4 apexColor, XMFLOAT4 midColor1, XMFLOAT4 midColor2, XMFLOAT4 centerColor)
 {
 	bool result;
 
 
 	// Set the shader parameters that it will use for rendering.
-	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, apexColor, centerColor);
+	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, apexColor, midColor1, midColor2, centerColor);
 	if (!result)
 	{
 		return false;
@@ -273,7 +273,7 @@ void SkyDomeShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND
 
 
 bool SkyDomeShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix,
-	XMMATRIX projectionMatrix, XMFLOAT4 apexColor, XMFLOAT4 centerColor)
+	XMMATRIX projectionMatrix, XMFLOAT4 apexColor, XMFLOAT4 midColor1, XMFLOAT4 midColor2, XMFLOAT4 centerColor)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -323,6 +323,8 @@ bool SkyDomeShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext,
 
 	// Copy the color data into the color constant buffer.
 	dataPtr2->apexColor = apexColor;
+	dataPtr2->midColor1 = midColor1;
+	dataPtr2->midColor2 = midColor2;
 	dataPtr2->centerColor = centerColor;
 
 	// Unlock the color constant buffer.
