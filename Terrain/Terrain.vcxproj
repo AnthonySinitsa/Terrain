@@ -25,6 +25,8 @@
     <None Include="font.vs" />
     <None Include="light.ps" />
     <None Include="light.vs" />
+    <None Include="skydome.ps" />
+    <None Include="skydome.vs" />
     <None Include="terrain.ps" />
     <None Include="terrain.vs" />
     <None Include="texture.ps" />
@@ -43,6 +45,8 @@
     <ClInclude Include="lightshaderclass.h" />
     <ClInclude Include="positionclass.h" />
     <ClInclude Include="shadermanagerclass.h" />
+    <ClInclude Include="skydomeclass.h" />
+    <ClInclude Include="skydomeshaderclass.h" />
     <ClInclude Include="systemclass.h" />
     <ClInclude Include="terrainclass.h" />
     <ClInclude Include="terrainshaderclass.h" />
@@ -68,6 +72,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="positionclass.cpp" />
     <ClCompile Include="shadermanagerclass.cpp" />
+    <ClCompile Include="skydomeclass.cpp" />
+    <ClCompile Include="skydomeshaderclass.cpp" />
     <ClCompile Include="systemclass.cpp" />
     <ClCompile Include="terrainclass.cpp" />
     <ClCompile Include="terrainshaderclass.cpp" />
