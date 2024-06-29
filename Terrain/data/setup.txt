@@ -1,5 +1,5 @@
-Terrain Filename: ../Terrain/data/botwRAW.r16
+Terrain Filename: ../Terrain/data/heightmap.r16
 Terrain Height: 1025
 Terrain Width: 1025
 Terrain Scaling: 300.0
-Color Map Filename: ../Terrain/data/botwCOLOR1025.bmp
+Color Map Filename: ../Terrain/data/colormap.bmp
