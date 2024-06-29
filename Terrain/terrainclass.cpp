@@ -34,8 +34,8 @@ bool TerrainClass::Initialize(ID3D11Device* device, char* setupFilename)
 		return false;
 	}
 
-	// Initialize the terrain height map with the data from the bitmap file.
-	result = LoadBitmapHeightMap();
+	// Initialize the terrain height map with the data from the raw file.
+	result = LoadRawHeightMap();
 	if (!result)
 	{
 		return false;
@@ -121,8 +121,9 @@ bool TerrainClass::LoadSetupFile(char* filename)
 	ifstream fin;
 	char input;
 
-	// Initialize the string that will hold the terrain file name.
+	// Initialize the strings that will hold the terrain file name and the color map file name.
 	stringLength = 256;
+
 	m_terrainFilename = new char[stringLength];
 	if (!m_terrainFilename)
 	{
@@ -245,7 +246,7 @@ bool TerrainClass::LoadBitmapHeightMap()
 	}
 
 	// Calculate the size of the bitmap image data.  
-	// Since we use non-divide by 2 dimensions (eg. 257x257) we need to add an extra byte to each line.
+	// Since we use non-divide by 2 dimensions (eg. 513x513) we need to add an extra byte to each line.
 	imageSize = m_terrainHeight * ((m_terrainWidth * 3) + 1);
 
 	// Allocate memory for the bitmap image data.
@@ -293,7 +294,7 @@ bool TerrainClass::LoadBitmapHeightMap()
 			k += 3;
 		}
 
-		// Compensate for the extra byte at end of each line in non-divide by 2 bitmaps (eg. 257x257).
+		// Compensate for the extra byte at end of each line in non-divide by 2 bitmaps (eg. 513x513).
 		k++;
 	}
 
@@ -301,7 +302,77 @@ bool TerrainClass::LoadBitmapHeightMap()
 	delete[] bitmapImage;
 	bitmapImage = 0;
 
-	// Release the terrain filename now that is has been read in.
+	// Release the terrain filename now that it has been read in.
+	delete[] m_terrainFilename;
+	m_terrainFilename = 0;
+
+	return true;
+}
+
+
+bool TerrainClass::LoadRawHeightMap()
+{
+	int error, i, j, index;
+	FILE* filePtr;
+	unsigned long long imageSize, count;
+	unsigned short* rawImage;
+
+
+	// Create the float array to hold the height map data.
+	m_heightMap = new HeightMapType[m_terrainWidth * m_terrainHeight];
+	if (!m_heightMap)
+	{
+		return false;
+	}
+
+	// Open the 16 bit raw height map file for reading in binary.
+	error = fopen_s(&filePtr, m_terrainFilename, "rb");
+	if (error != 0)
+	{
+		return false;
+	}
+
+	// Calculate the size of the raw image data.
+	imageSize = m_terrainHeight * m_terrainWidth;
+
+	// Allocate memory for the raw image data.
+	rawImage = new unsigned short[imageSize];
+	if (!rawImage)
+	{
+		return false;
+	}
+
+	// Read in the raw image data.
+	count = fread(rawImage, sizeof(unsigned short), imageSize, filePtr);
+	if (count != imageSize)
+	{
+		return false;
+	}
+
+	// Close the file.
+	error = fclose(filePtr);
+	if (error != 0)
+	{
+		return false;
+	}
+
+	// Copy the image data into the height map array.
+	for (j = 0; j < m_terrainHeight; j++)
+	{
+		for (i = 0; i < m_terrainWidth; i++)
+		{
+			index = (m_terrainWidth * j) + i;
+
+			// Store the height at this point in the height map array.
+			m_heightMap[index].y = (float)rawImage[index];
+		}
+	}
+
+	// Release the bitmap image data.
+	delete[] rawImage;
+	rawImage = 0;
+
+	// Release the terrain filename now that it has been read in.
 	delete[] m_terrainFilename;
 	m_terrainFilename = 0;
 
@@ -520,7 +591,8 @@ bool TerrainClass::LoadColorMap()
 		return false;
 	}
 
-	// Calculate the size of the bitmap image data.  Since this is non-divide by 2 dimensions (eg. 257x257) need to add extra byte to each line.
+	// Calculate the size of the bitmap image data.
+	// Since this is non-divide by 2 dimensions (eg. 257x257) need to add extra byte to each line.
 	imageSize = m_terrainHeight * ((m_terrainWidth * 3) + 1);
 
 	// Allocate memory for the bitmap image data.
@@ -856,11 +928,8 @@ bool TerrainClass::InitializeBuffers(ID3D11Device* device)
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 	int i;
-	XMFLOAT4 color;
 
 
-	// Set the color of the terrain grid.
-	color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// Calculate the number of vertices in the terrain.
 	m_vertexCount = (m_terrainWidth - 1) * (m_terrainHeight - 1) * 6;
