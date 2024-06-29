@@ -31,3 +31,7 @@ Project that renders terrain utilizing DirectX 11
 ### SkyDome
 
 ![skydome](images/skydome.png)
+
+### RAW 16bit height map
+
+![RAWheight](images/RAWheight.png)
