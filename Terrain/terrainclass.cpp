@@ -41,13 +41,6 @@ bool TerrainClass::Initialize(ID3D11Device* device, char* setupFilename)
 		return false;
 	}
 
-	// Initialize the terrain height map with the data from the bitmap file.
-	result = LoadBitmapHeightMap();
-	if (!result)
-	{
-		return false;
-	}
-
 	// Setup the X and Z coordinates for the height map as well as scale the terrain height by the height scale value.
 	SetTerrainCoordinates();
 
@@ -128,8 +121,9 @@ bool TerrainClass::LoadSetupFile(char* filename)
 	ifstream fin;
 	char input;
 
-	// Initialize the string that will hold the terrain file name.
+	// Initialize the strings that will hold the terrain file name and the color map file name.
 	stringLength = 256;
+
 	m_terrainFilename = new char[stringLength];
 	if (!m_terrainFilename)
 	{
@@ -252,7 +246,7 @@ bool TerrainClass::LoadBitmapHeightMap()
 	}
 
 	// Calculate the size of the bitmap image data.  
-	// Since we use non-divide by 2 dimensions (eg. 257x257) we need to add an extra byte to each line.
+	// Since we use non-divide by 2 dimensions (eg. 513x513) we need to add an extra byte to each line.
 	imageSize = m_terrainHeight * ((m_terrainWidth * 3) + 1);
 
 	// Allocate memory for the bitmap image data.
@@ -300,7 +294,7 @@ bool TerrainClass::LoadBitmapHeightMap()
 			k += 3;
 		}
 
-		// Compensate for the extra byte at end of each line in non-divide by 2 bitmaps (eg. 257x257).
+		// Compensate for the extra byte at end of each line in non-divide by 2 bitmaps (eg. 513x513).
 		k++;
 	}
 
@@ -308,7 +302,7 @@ bool TerrainClass::LoadBitmapHeightMap()
 	delete[] bitmapImage;
 	bitmapImage = 0;
 
-	// Release the terrain filename now that is has been read in.
+	// Release the terrain filename now that it has been read in.
 	delete[] m_terrainFilename;
 	m_terrainFilename = 0;
 
@@ -597,7 +591,8 @@ bool TerrainClass::LoadColorMap()
 		return false;
 	}
 
-	// Calculate the size of the bitmap image data.  Since this is non-divide by 2 dimensions (eg. 257x257) need to add extra byte to each line.
+	// Calculate the size of the bitmap image data.
+	// Since this is non-divide by 2 dimensions (eg. 257x257) need to add extra byte to each line.
 	imageSize = m_terrainHeight * ((m_terrainWidth * 3) + 1);
 
 	// Allocate memory for the bitmap image data.
@@ -933,11 +928,8 @@ bool TerrainClass::InitializeBuffers(ID3D11Device* device)
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 	int i;
-	XMFLOAT4 color;
 
 
-	// Set the color of the terrain grid.
-	color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// Calculate the number of vertices in the terrain.
 	m_vertexCount = (m_terrainWidth - 1) * (m_terrainHeight - 1) * 6;

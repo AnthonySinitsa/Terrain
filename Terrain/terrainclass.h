@@ -79,7 +79,6 @@ private:
 	bool LoadColorMap();
 	bool BuildTerrainModel();
 	void ShutdownTerrainModel();
-
 	void CalculateTerrainVectors();
 	void CalculateTangentBinormal(TempVertexType, TempVertexType, TempVertexType, VectorType&, VectorType&);
 
@@ -88,11 +87,11 @@ private:
 	void RenderBuffers(ID3D11DeviceContext*);
 
 private:
-	ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
+	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
 	int m_terrainHeight, m_terrainWidth;
 	float m_heightScale;
-	char* m_terrainFilename, * m_colorMapFilename;
+	char *m_terrainFilename, *m_colorMapFilename;
 	HeightMapType* m_heightMap;
 	ModelType* m_terrainModel;
 };
