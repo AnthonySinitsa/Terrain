@@ -126,6 +126,9 @@ bool ZoneClass::Initialize(D3DClass* Direct3D, HWND hwnd, int screenWidth, int s
 	// Set the rendering of cell lines initially to enabled.
 	m_cellLines = true;
 
+	// Set the user locked to the terrain height for movement.
+	m_heightLocked = true;
+
 	return true;
 }
 
@@ -188,10 +191,11 @@ void ZoneClass::Shutdown()
 }
 
 
-bool ZoneClass::Frame(D3DClass* Direct3D, InputClass* Input, ShaderManagerClass* ShaderManager, TextureManagerClass* TextureManager, float frameTime, int fps)
+bool ZoneClass::Frame(D3DClass* Direct3D, InputClass* Input, ShaderManagerClass* ShaderManager, TextureManagerClass* TextureManager,
+	float frameTime, int fps)
 {
-	bool result;
-	float posX, posY, posZ, rotX, rotY, rotZ;
+	bool result, foundHeight;
+	float posX, posY, posZ, rotX, rotY, rotZ, height;
 
 
 	// Do the frame input processing.
@@ -210,6 +214,19 @@ bool ZoneClass::Frame(D3DClass* Direct3D, InputClass* Input, ShaderManagerClass*
 
 	// Do the terrain frame processing.
 	m_Terrain->Frame();
+
+	// If the height is locked to the terrain then position the camera on top of it.
+	if (m_heightLocked)
+	{
+		// Get the height of the triangle that is directly underneath the given camera position.
+		foundHeight = m_Terrain->GetHeightAtPosition(posX, posZ, height);
+		if (foundHeight)
+		{
+			// If there was a triangle under the camera then position the camera just above it by one meter.
+			m_Position->SetPosition(posX, height + 1.0f, posZ);
+			m_Camera->SetPosition(posX, height + 1.0f, posZ);
+		}
+	}
 
 	// Render the graphics.
 	result = Render(Direct3D, ShaderManager, TextureManager);
@@ -286,6 +303,12 @@ void ZoneClass::HandleMovementInput(InputClass* Input, float frameTime)
 	if (Input->IsF3Toggled())
 	{
 		m_cellLines = !m_cellLines;
+	}
+
+	// Determine if we should be locked to the terrain height when we move around or not.
+	if (Input->IsF4Toggled())
+	{
+		m_heightLocked = !m_heightLocked;
 	}
 
 	return;

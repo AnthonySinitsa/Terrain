@@ -73,6 +73,8 @@ public:
 	int GetCellsDrawn();
 	int GetCellsCulled();
 
+	bool GetHeightAtPosition(float, float, float&);
+
 private:
 	bool LoadSetupFile(char*);
 	bool LoadRawHeightMap();
@@ -86,6 +88,7 @@ private:
 	void CalculateTangentBinormal(TempVertexType, TempVertexType, TempVertexType, VectorType&, VectorType&);
 	bool LoadTerrainCells(ID3D11Device*);
 	void ShutdownTerrainCells();
+	bool CheckHeightOfTriangle(float, float, float&, float[3], float[3], float[3]);
 
 private:
 	int m_terrainHeight, m_terrainWidth, m_vertexCount;
