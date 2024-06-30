@@ -174,21 +174,21 @@ bool UserInterfaceClass::Initialize(D3DClass* Direct3D, int screenHeight, int sc
 
 	// Initialize the render count strings.
 	result = m_RenderCountStrings[0].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false, m_Font1,
-		"Polys Drawn: 0", 10, 260, 1.0f, 1.0f, 1.0f);
+		(char*)"Polys Drawn: 0", 10, 260, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
 	result = m_RenderCountStrings[1].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false, m_Font1,
-		"Cells Drawn: 0", 10, 280, 1.0f, 1.0f, 1.0f);
+		(char*)"Cells Drawn: 0", 10, 280, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
 	result = m_RenderCountStrings[2].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false, m_Font1,
-		"Cells Culled: 0", 10, 300, 1.0f, 1.0f, 1.0f);
+		(char*)"Cells Culled: 0", 10, 300, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;

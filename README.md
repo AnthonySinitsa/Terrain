@@ -39,3 +39,7 @@ Project that renders terrain utilizing DirectX 11
 ### Terrain Cells
 
 ![terrainCells](images/terrainCells.png)
+
+### Frustum culling the cells
+
+![frustum](images/frustum.png)
