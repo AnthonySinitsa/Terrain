@@ -99,6 +99,15 @@ void TerrainClass::Shutdown()
 }
 
 
+void TerrainClass::Frame()
+{
+	m_renderCount = 0;
+	m_cellsDrawn = 0;
+	m_cellsCulled = 0;
+	return;
+}
+
+
 bool TerrainClass::LoadSetupFile(char* filename)
 {
 	int stringLength;
@@ -855,9 +864,34 @@ void TerrainClass::ShutdownTerrainCells()
 }
 
 
-bool TerrainClass::RenderCell(ID3D11DeviceContext* deviceContext, int cellId)
+bool TerrainClass::RenderCell(ID3D11DeviceContext* deviceContext, int cellId, FrustumClass* Frustum)
 {
+	float maxWidth, maxHeight, maxDepth, minWidth, minHeight, minDepth;
+	bool result;
+
+
+	// Get the dimensions of the terrain cell.
+	m_TerrainCells[cellId].GetCellDimensions(maxWidth, maxHeight, maxDepth, minWidth, minHeight, minDepth);
+
+	// Check if the cell is visible.  If it is not visible then just return and don't render it.
+	result = Frustum->CheckRectangle2(maxWidth, maxHeight, maxDepth, minWidth, minHeight, minDepth);
+	if (!result)
+	{
+		// Increment the number of cells that were culled.
+		m_cellsCulled++;
+
+		return false;
+	}
+
+	// If it is visible then render it.
 	m_TerrainCells[cellId].Render(deviceContext);
+
+	// Add the polygons in the cell to the render count.
+	m_renderCount += (m_TerrainCells[cellId].GetVertexCount() / 3);
+
+	// Increment the number of cells that were actually drawn.
+	m_cellsDrawn++;
+
 	return true;
 }
 
@@ -884,4 +918,22 @@ int TerrainClass::GetCellLinesIndexCount(int cellId)
 int TerrainClass::GetCellCount()
 {
 	return m_cellCount;
+}
+
+
+int TerrainClass::GetRenderCount()
+{
+	return m_renderCount;
+}
+
+
+int TerrainClass::GetCellsDrawn()
+{
+	return m_cellsDrawn;
+}
+
+
+int TerrainClass::GetCellsCulled()
+{
+	return m_cellsCulled;
 }
