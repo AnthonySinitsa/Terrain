@@ -14,6 +14,7 @@ using namespace std;
 // MY CLASS INCLUDES //
 ///////////////////////
 #include "terraincellclass.h"
+#include "frustumclass.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -59,12 +60,18 @@ public:
 	bool Initialize(ID3D11Device*, char*);
 	void Shutdown();
 
+	void Frame();
+
+	bool RenderCell(ID3D11DeviceContext*, int, FrustumClass*);
 	bool RenderCell(ID3D11DeviceContext*, int);
 	void RenderCellLines(ID3D11DeviceContext*, int);
 
 	int GetCellIndexCount(int);
 	int GetCellLinesIndexCount(int);
 	int GetCellCount();
+	int GetRenderCount();
+	int GetCellsDrawn();
+	int GetCellsCulled();
 
 private:
 	bool LoadSetupFile(char*);
@@ -87,7 +94,7 @@ private:
 	HeightMapType* m_heightMap;
 	ModelType* m_terrainModel;
 	TerrainCellClass* m_TerrainCells;
-	int m_cellCount;
+	int m_cellCount, m_renderCount, m_cellsDrawn, m_cellsCulled;
 };
 
 #endif

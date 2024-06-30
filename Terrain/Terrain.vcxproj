@@ -40,6 +40,7 @@
     <ClInclude Include="fontclass.h" />
     <ClInclude Include="fontshaderclass.h" />
     <ClInclude Include="fpsclass.h" />
+    <ClInclude Include="frustumclass.h" />
     <ClInclude Include="inputclass.h" />
     <ClInclude Include="lightclass.h" />
     <ClInclude Include="lightshaderclass.h" />
@@ -67,6 +68,7 @@
     <ClCompile Include="fontclass.cpp" />
     <ClCompile Include="fontshaderclass.cpp" />
     <ClCompile Include="fpsclass.cpp" />
+    <ClCompile Include="frustumclass.cpp" />
     <ClCompile Include="inputclass.cpp" />
     <ClCompile Include="lightclass.cpp" />
     <ClCompile Include="lightshaderclass.cpp" />

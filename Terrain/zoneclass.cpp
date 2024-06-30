@@ -7,6 +7,7 @@ ZoneClass::ZoneClass()
 	m_Camera = 0;
 	m_Light = 0;
 	m_Position = 0;
+	m_Frustum = 0;
 	m_SkyDome = 0;
 	m_Terrain = 0;
 }
@@ -73,8 +74,18 @@ bool ZoneClass::Initialize(D3DClass* Direct3D, HWND hwnd, int screenWidth, int s
 	}
 
 	// Set the initial position and rotation.
-	m_Position->SetPosition(128.0f, 10.0f, -10.0f);
+	m_Position->SetPosition(512.0f, 30.0f, -10.0f);
 	m_Position->SetRotation(0.0f, 0.0f, 0.0f);
+
+	// Create the frustum object.
+	m_Frustum = new FrustumClass;
+	if (!m_Frustum)
+	{
+		return false;
+	}
+
+	// Initialize the frustum object.
+	m_Frustum->Initialize(screenDepth);
 
 	// Create the sky dome object.
 	m_SkyDome = new SkyDomeClass;
@@ -144,6 +155,13 @@ void ZoneClass::Shutdown()
 		m_Position = 0;
 	}
 
+	// Release the frustum object.
+	if (m_Frustum)
+	{
+		delete m_Frustum;
+		m_Frustum = 0;
+	}
+
 	// Release the light object.
 	if (m_Light)
 	{
@@ -189,6 +207,9 @@ bool ZoneClass::Frame(D3DClass* Direct3D, InputClass* Input, ShaderManagerClass*
 	{
 		return false;
 	}
+
+	// Do the terrain frame processing.
+	m_Terrain->Frame();
 
 	// Render the graphics.
 	result = Render(Direct3D, ShaderManager, TextureManager);
@@ -292,6 +313,9 @@ bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager, Te
 	// Get the position of the camera.
 	cameraPosition = m_Camera->GetPosition();
 
+	// Construct the frustum.
+	m_Frustum->ConstructFrustum(projectionMatrix, viewMatrix);
+
 	// Clear the buffers to begin the scene.
 	Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 
@@ -327,31 +351,29 @@ bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager, Te
 	// Render the terrain cells (and cell lines if needed).
 	for (i = 0; i < m_Terrain->GetCellCount(); i++)
 	{
-		// Put the terrain cell buffers on the pipeline.
-		result = m_Terrain->RenderCell(Direct3D->GetDeviceContext(), i);
-		if (!result)
+		// Render each terrain cell if it is visible only.
+		result = m_Terrain->RenderCell(Direct3D->GetDeviceContext(), i, m_Frustum);
+		if (result)
 		{
-			return false;
-
-		}
-
-		// Render the cell buffers using the terrain shader.
-		result = ShaderManager->RenderTerrainShader(Direct3D->GetDeviceContext(), m_Terrain->GetCellIndexCount(i), worldMatrix, viewMatrix,
-			projectionMatrix, TextureManager->GetTexture(0), TextureManager->GetTexture(1),
-			m_Light->GetDirection(), m_Light->GetDiffuseColor());
-		if (!result)
-		{
-			return false;
-		}
-
-		// If needed then render the bounding box around this terrain cell using the color shader. 
-		if (m_cellLines)
-		{
-			m_Terrain->RenderCellLines(Direct3D->GetDeviceContext(), i);
-			ShaderManager->RenderColorShader(Direct3D->GetDeviceContext(), m_Terrain->GetCellLinesIndexCount(i), worldMatrix, viewMatrix, projectionMatrix);
+			// Render the cell buffers using the terrain shader.
+			result = ShaderManager->RenderTerrainShader(Direct3D->GetDeviceContext(), m_Terrain->GetCellIndexCount(i), worldMatrix, viewMatrix,
+				projectionMatrix, TextureManager->GetTexture(0), TextureManager->GetTexture(1),
+				m_Light->GetDirection(), m_Light->GetDiffuseColor());
 			if (!result)
 			{
 				return false;
+			}
+
+			// If needed then render the bounding box around this terrain cell using the color shader. 
+			if (m_cellLines)
+			{
+				m_Terrain->RenderCellLines(Direct3D->GetDeviceContext(), i);
+				ShaderManager->RenderColorShader(Direct3D->GetDeviceContext(), m_Terrain->GetCellLinesIndexCount(i), worldMatrix,
+					viewMatrix, projectionMatrix);
+				if (!result)
+				{
+					return false;
+				}
 			}
 		}
 	}
@@ -360,6 +382,14 @@ bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager, Te
 	if (m_wireFrame)
 	{
 		Direct3D->DisableWireframe();
+	}
+
+	// Update the render counts in the UI.
+	result = m_UserInterface->UpdateRenderCounts(Direct3D->GetDeviceContext(), m_Terrain->GetRenderCount(), m_Terrain->GetCellsDrawn(),
+		m_Terrain->GetCellsCulled());
+	if (!result)
+	{
+		return false;
 	}
 
 	// Render the user interface.
