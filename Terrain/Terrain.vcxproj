@@ -48,6 +48,7 @@
     <ClInclude Include="skydomeclass.h" />
     <ClInclude Include="skydomeshaderclass.h" />
     <ClInclude Include="systemclass.h" />
+    <ClInclude Include="terraincellclass.h" />
     <ClInclude Include="terrainclass.h" />
     <ClInclude Include="terrainshaderclass.h" />
     <ClInclude Include="textclass.h" />
@@ -75,6 +76,7 @@
     <ClCompile Include="skydomeclass.cpp" />
     <ClCompile Include="skydomeshaderclass.cpp" />
     <ClCompile Include="systemclass.cpp" />
+    <ClCompile Include="terraincellclass.cpp" />
     <ClCompile Include="terrainclass.cpp" />
     <ClCompile Include="terrainshaderclass.cpp" />
     <ClCompile Include="textclass.cpp" />

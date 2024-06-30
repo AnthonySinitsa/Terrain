@@ -112,6 +112,9 @@ bool ZoneClass::Initialize(D3DClass* Direct3D, HWND hwnd, int screenWidth, int s
 	// Set wire frame rendering initially to enabled.
 	m_wireFrame = true;
 
+	// Set the rendering of cell lines initially to enabled.
+	m_cellLines = true;
+
 	return true;
 }
 
@@ -258,6 +261,12 @@ void ZoneClass::HandleMovementInput(InputClass* Input, float frameTime)
 		m_wireFrame = !m_wireFrame;
 	}
 
+	// Determine if we should render the lines around each terrain cell.
+	if (Input->IsF3Toggled())
+	{
+		m_cellLines = !m_cellLines;
+	}
+
 	return;
 }
 
@@ -314,14 +323,36 @@ bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager, Te
 		Direct3D->EnableWireframe();
 	}
 
-	// Render the terrain grid using the color shader.
-	m_Terrain->Render(Direct3D->GetDeviceContext());
-	result = ShaderManager->RenderTerrainShader(Direct3D->GetDeviceContext(), m_Terrain->GetIndexCount(), worldMatrix, viewMatrix,
-		projectionMatrix, TextureManager->GetTexture(0), TextureManager->GetTexture(1),
-		m_Light->GetDirection(), m_Light->GetDiffuseColor());
-	if (!result)
+	// Render the terrain cells (and cell lines if needed).
+	for (i = 0; i < m_Terrain->GetCellCount(); i++)
 	{
-		return false;
+		// Put the terrain cell buffers on the pipeline.
+		result = m_Terrain->RenderCell(Direct3D->GetDeviceContext(), i);
+		if (!result)
+		{
+			return false;
+
+		}
+
+		// Render the cell buffers using the terrain shader.
+		result = ShaderManager->RenderTerrainShader(Direct3D->GetDeviceContext(), m_Terrain->GetCellIndexCount(i), worldMatrix, viewMatrix,
+			projectionMatrix, TextureManager->GetTexture(0), TextureManager->GetTexture(1),
+			m_Light->GetDirection(), m_Light->GetDiffuseColor());
+		if (!result)
+		{
+			return false;
+		}
+
+		// If needed then render the bounding box around this terrain cell using the color shader. 
+		if (m_cellLines)
+		{
+			m_Terrain->RenderCellLines(Direct3D->GetDeviceContext(), i);
+			ShaderManager->RenderColorShader(Direct3D->GetDeviceContext(), m_Terrain->GetCellLinesIndexCount(i), worldMatrix, viewMatrix, projectionMatrix);
+			if (!result)
+			{
+				return false;
+			}
+		}
 	}
 
 	// Turn off wire frame rendering of the terrain if it was on.
