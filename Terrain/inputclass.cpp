@@ -421,3 +421,23 @@ bool InputClass::IsF3Toggled()
 
 	return false;
 }
+
+
+bool InputClass::IsF4Toggled()
+{
+	// Do a bitwise and on the keyboard state to check if the key is currently being pressed.
+	if (m_keyboardState[DIK_F4] & 0x80)
+	{
+		if (m_F4_released)
+		{
+			m_F3_released = false;
+			return true;
+		}
+	}
+	else
+	{
+		m_F4_released = true;
+	}
+
+	return false;
+}

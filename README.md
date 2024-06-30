@@ -43,3 +43,7 @@ Project that renders terrain utilizing DirectX 11
 ### Frustum culling the cells
 
 ![frustum](images/frustum.png)
+
+### Locked camera to floor to have a player appearance
+
+![playerCam](images/playerCam.gif)
