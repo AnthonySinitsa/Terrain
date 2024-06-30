@@ -3,12 +3,11 @@
 
 TerrainClass::TerrainClass()
 {
-	m_vertexBuffer = 0;
-	m_indexBuffer = 0;
 	m_terrainFilename = 0;
 	m_colorMapFilename = 0;
 	m_heightMap = 0;
 	m_terrainModel = 0;
+	m_TerrainCells = 0;
 }
 
 
@@ -71,8 +70,8 @@ bool TerrainClass::Initialize(ID3D11Device* device, char* setupFilename)
 	// Calculate the tangent and binormal for the terrain model.
 	CalculateTerrainVectors();
 
-	// Load the rendering buffers with the terrain data.
-	result = InitializeBuffers(device);
+	// Create and load the cells with the terrain data.
+	result = LoadTerrainCells(device);
 	if (!result)
 	{
 		return false;
@@ -87,8 +86,8 @@ bool TerrainClass::Initialize(ID3D11Device* device, char* setupFilename)
 
 void TerrainClass::Shutdown()
 {
-	// Release the rendering buffers.
-	ShutdownBuffers();
+	// Release the terrain cells.
+	ShutdownTerrainCells();
 
 	// Release the terrain model.
 	ShutdownTerrainModel();
@@ -917,6 +916,99 @@ void TerrainClass::CalculateTangentBinormal(TempVertexType vertex1, TempVertexTy
 	binormal.z = binormal.z / length;
 
 	return;
+}
+
+
+bool TerrainClass::LoadTerrainCells(ID3D11Device* device)
+{
+	int cellHeight, cellWidth, cellRowCount, i, j, index;
+	bool result;
+
+
+	// Set the height and width of each terrain cell to a fixed 33x33 vertex array.
+	cellHeight = 33;
+	cellWidth = 33;
+
+	// Calculate the number of cells needed to store the terrain data.
+	cellRowCount = (m_terrainWidth - 1) / (cellWidth - 1);
+	m_cellCount = cellRowCount * cellRowCount;
+
+	// Create the terrain cell array.
+	m_TerrainCells = new TerrainCellClass[m_cellCount];
+	if (!m_TerrainCells)
+	{
+		return false;
+	}
+
+	// Loop through and initialize all the terrain cells.
+	for (j = 0; j < cellRowCount; j++)
+	{
+		for (i = 0; i < cellRowCount; i++)
+		{
+			index = (cellRowCount * j) + i;
+
+			result = m_TerrainCells[index].Initialize(device, m_terrainModel, i, j, cellHeight, cellWidth, m_terrainWidth);
+			if (!result)
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+
+void TerrainClass::ShutdownTerrainCells()
+{
+	int i;
+
+
+	// Release the terrain cell array.
+	if (m_TerrainCells)
+	{
+		for (i = 0; i < m_cellCount; i++)
+		{
+			m_TerrainCells[i].Shutdown();
+		}
+
+		delete[] m_TerrainCells;
+		m_TerrainCells = 0;
+	}
+
+	return;
+}
+
+
+bool TerrainClass::RenderCell(ID3D11DeviceContext* deviceContext, int cellId)
+{
+	m_TerrainCells[cellId].Render(deviceContext);
+	return true;
+}
+
+
+void TerrainClass::RenderCellLines(ID3D11DeviceContext* deviceContext, int cellId)
+{
+	m_TerrainCells[cellId].RenderLineBuffers(deviceContext);
+	return;
+}
+
+
+int TerrainClass::GetCellIndexCount(int cellId)
+{
+	return m_TerrainCells[cellId].GetIndexCount();
+}
+
+
+int TerrainClass::GetCellLinesIndexCount(int cellId)
+{
+	return m_TerrainCells[cellId].GetLineBuffersIndexCount();
+}
+
+
+int TerrainClass::GetCellCount()
+{
+	return m_cellCount;
 }
 
 
