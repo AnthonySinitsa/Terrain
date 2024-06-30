@@ -97,6 +97,7 @@ bool InputClass::Initialize(HINSTANCE hinstance, HWND hwnd, int screenWidth, int
 
 	m_F1_released = true;
 	m_F2_released = true;
+	m_F3_released = true;
 
 	return true;
 }
@@ -396,6 +397,26 @@ bool InputClass::IsF2Toggled()
 	else
 	{
 		m_F2_released = true;
+	}
+
+	return false;
+}
+
+
+bool InputClass::IsF3Toggled()
+{
+	// Do a bitwise and on the keyboard state to check if the key is currently being pressed.
+	if (m_keyboardState[DIK_F3] & 0x80)
+	{
+		if (m_F3_released)
+		{
+			m_F3_released = false;
+			return true;
+		}
+	}
+	else
+	{
+		m_F3_released = true;
 	}
 
 	return false;
