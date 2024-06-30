@@ -1,49 +1,34 @@
-# Terrain
+# Terrain Rendering
 
-Project that renders terrain utilizing DirectX 11
+This project is a comprehensive terrain rendering application written in C++ and HLSL, utilizing DirectX 11 for rendering. It showcases many advanced graphics techniques and features, making it a robust demo of terrain visualization and manipulation.
 
-## Progress
+## Features:
 
-### Camera controller working
+### Camera Control: Allows for navigation through the terrain
 
-![controls](images/controls.gif)
+![playerCam](/images/playerCam.gif)
 
-### Added HeightMap
+### Height Maps: Supports height maps for terrain generation, able to create realistic terrain
 
-![height](images/height.png)
+![height](/images/height.png)
 
-### Added 4k texture every square meter
+### Texturing: Adds a texture to the height maps to make the map look like terrain
 
-![terraintexture](images/terraintexture.png)
+![normals](/images/normals.png)
 
-### Shadows
+### Shadows: Adds depth and realism to the scene
 
-![shading](images/shading.png)
+![shading](/images/shading.png)
 
-### Colormap
+### Skydome: Includes a skydome to simulate the sky, really completes the immersion
 
-![colormap](images/colormap.png)
+![skydome](/images/skydome.png)
 
-### Normals added
+### RAW 16-bit Height Maps: Support RAW 16-bit height maps allowing for higher resolution and much more detailed terrain like lower trophs and higher peaks
 
-![normals](images/normals.png)
+![RAWheight](/images/RAWheight2.png)
 
-### SkyDome
+### Terrain Cells and Frustum Culling: Divides the terrain into cells and implements frustum culling, optimizing rendering performance by only drawing visible parts of terrain
 
-![skydome](images/skydome.png)
-
-### RAW 16bit height map
-
-![RAWheight](images/RAWheight2.png)
-
-### Terrain Cells
-
-![terrainCells](images/terrainCells.png)
-
-### Frustum culling the cells
-
-![frustum](images/frustum.png)
-
-### Locked camera to floor to have a player appearance
-
-![playerCam](images/playerCam.gif)
+![terrainCells](/images/terrainCells.png)
+![frustum](/images/frustum.png)
