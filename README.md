@@ -35,3 +35,7 @@ Project that renders terrain utilizing DirectX 11
 ### RAW 16bit height map
 
 ![RAWheight](images/RAWheight2.png)
+
+### Terrain Cells
+
+![terrainCells](images/terrainCells.png)
