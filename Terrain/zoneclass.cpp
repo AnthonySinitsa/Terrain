@@ -276,6 +276,7 @@ bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager, Te
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, baseViewMatrix, orthoMatrix;
 	bool result;
 	XMFLOAT3 cameraPosition;
+	int i;
 
 
 	// Generate the view matrix based on the camera's position.

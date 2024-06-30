@@ -86,9 +86,7 @@ private:
 	char* m_terrainFilename, * m_colorMapFilename;
 	HeightMapType* m_heightMap;
 	ModelType* m_terrainModel;
-	This is the new terrain cell array and a count variable to keep track of how many cells are in the array.
-
-		TerrainCellClass* m_TerrainCells;
+	TerrainCellClass* m_TerrainCells;
 	int m_cellCount;
 };
 

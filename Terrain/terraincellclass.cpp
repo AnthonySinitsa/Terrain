@@ -571,7 +571,7 @@ void TerrainCellClass::RenderLineBuffers(ID3D11DeviceContext* deviceContext)
 
 	return;
 }
-GetLineBuffersIndexCount returns the number of indices in the terrain cell bounding box buffer.
+
 
 int TerrainCellClass::GetLineBuffersIndexCount()
 {
