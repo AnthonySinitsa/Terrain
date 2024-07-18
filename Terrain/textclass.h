@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _TEXTCLASS_H_
 #define _TEXTCLASS_H_
 

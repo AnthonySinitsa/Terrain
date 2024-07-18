@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _FRUSTUMCLASS_H_
 #define _FRUSTUMCLASS_H_
 

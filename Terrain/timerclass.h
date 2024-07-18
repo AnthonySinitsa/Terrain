@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _TIMERCLASS_H_
 #define _TIMERCLASS_H_
 

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _FONTCLASS_H_
 #define _FONTCLASS_H_
 

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _POSITIONCLASS_H_
 #define _POSITIONCLASS_H_
 

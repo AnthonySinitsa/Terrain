@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _SKYDOMESHADERCLASS_H_
 #define _SKYDOMESHADERCLASS_H_
 

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _SHADERMANAGERCLASS_H_
 #define _SHADERMANAGERCLASS_H_
 

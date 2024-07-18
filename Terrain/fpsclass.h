@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _FPSCLASS_H_
 #define _FPSCLASS_H_
 
