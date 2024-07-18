@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _COLORSHADERCLASS_H_
 #define _COLORSHADERCLASS_H_
 

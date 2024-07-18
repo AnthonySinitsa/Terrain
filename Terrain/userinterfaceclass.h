@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _USERINTERFACECLASS_H_
 #define _USERINTERFACECLASS_H_
 

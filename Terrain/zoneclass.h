@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _ZONECLASS_H_
 #define _ZONECLASS_H_
 

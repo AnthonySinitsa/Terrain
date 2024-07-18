@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _TERRAINCELLCLASS_H_
 #define _TERRAINCELLCLASS_H_
 

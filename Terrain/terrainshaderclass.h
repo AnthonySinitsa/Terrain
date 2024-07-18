@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _TERRAINSHADERCLASS_H_
 #define _TERRAINSHADERCLASS_H_
 

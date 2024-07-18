@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _TEXTURECLASS_H_
 #define _TEXTURECLASS_H_
 

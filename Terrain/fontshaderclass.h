@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _FONTSHADERCLASS_H_
 #define _FONTSHADERCLASS_H_
 

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _SKYDOMECLASS_H_
 #define _SKYDOMECLASS_H_
 

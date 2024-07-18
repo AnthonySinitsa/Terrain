@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _LIGHTSHADERCLASS_H_
 #define _LIGHTSHADERCLASS_H_
 

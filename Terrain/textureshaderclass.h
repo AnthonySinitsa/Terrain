@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _TEXTURESHADERCLASS_H_
 #define _TEXTURESHADERCLASS_H_
 
